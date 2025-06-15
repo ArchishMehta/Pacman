@@ -78,8 +78,8 @@ class Ghost:
     def __init__(self, x_coord, y_coord, target, speed, img, direct, dead, box, id):
         self.x_pos = x_coord
         self.y_pos = y_coord
-        self.center_x = self.x_pos + 22  # check
-        self.center_y = self.y_pos + 22  # check
+        self.center_x = self.x_pos + 18  # check
+        self.center_y = self.y_pos + 18  # check
         self.target = target
         self.speed = speed
         self.img = img
@@ -97,7 +97,7 @@ class Ghost:
             screen.blit(spooked_img, (self.x_pos, self.y_pos))
         else:
             screen.blit(dead_img, (self.x_pos, self.y_pos))
-        ghost_rect = pygame.rect.Rect((self.center_x - 18, self.center_y - 18), (36, 36))  # check-hit box for the ghost
+        ghost_rect = pygame.rect.Rect((self.center_x - 17, self.center_y - 17), (35, 35))  # check-hit box for the ghost
         return ghost_rect
 
     def check_collisions(self):
@@ -173,7 +173,12 @@ class Ghost:
         else:
             self.turns[0] = True
             self.turns[1] = True
-        if 350 < self.x_pos < 550 and 370 < self.y_pos < 480:
+        box_x_start = (WIDTH // 2) - (3 * num2)  # 900/2 - 90 = 360
+        box_x_end = (WIDTH // 2) + (3 * num2)  # 900/2 + 90 = 540
+        box_y_start = 13 * num1  # e.g. row 13
+        box_y_end = 16 * num1  # row 16
+
+        if box_x_start < self.x_pos < box_x_end and box_y_start < self.y_pos < box_y_end:
             self.in_box = True
         else:
             self.in_box = False
